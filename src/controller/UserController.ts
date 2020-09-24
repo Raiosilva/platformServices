@@ -1,26 +1,35 @@
-import {getRepository} from "typeorm";
-import {NextFunction, Request, Response} from "express";
+import { Request } from "express";
 import {User} from "../entity/User";
+import { BaseController } from "./BaseController";
 
-export class UserController {
+export class UserController extends BaseController<User> {
 
-    private userRepository = getRepository(User);
-
-    async all(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.find();
+    constructor() {
+        super(User);
     }
 
-    async one(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.findOne(request.params.id);
+    async createUser(request: Request) {
+        let {name, photo, email, isRoot, password, confirm_password } = request.body;
+        super.isRequired(name, 'Informe o nome');
+        super.isRequired(photo, 'Informe a photo');
+        super.isRequired(password, 'Informe a senha');
+        super.isRequired(confirm_password, 'Informe a confirmação da senha');
+        super.isRequired(email, 'Informe o email');
+        let _user = new User();
+        _user.name = name;
+        _user.photo = photo;
+        _user.email = email;
+        _user.password = password;
+        _user.isRoot = isRoot;
+        return super.save(_user);
     }
 
-    async save(request: Request, response: Response, next: NextFunction) {
-        return this.userRepository.save(request.body);
-    }
-
-    async remove(request: Request, response: Response, next: NextFunction) {
-        let userToRemove = await this.userRepository.findOne(request.params.id);
-        await this.userRepository.remove(userToRemove);
+    async save(request: Request) {
+        let user = <User>request.body;
+        // let {name, photo, email, isRoot, password } = request.body;
+        super.isRequired(user.name, 'O nome do usuário é Obrigatório');
+        super.isRequired(user.photo, 'A foto do usuário é Obrigatória');
+        return super.save(user);
     }
 
 }

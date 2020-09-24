@@ -4,7 +4,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
 import {Routes} from "./routes";
-import {User} from "./entity/User";
+import config from './config/config';
 
 const port = 3000;
 
@@ -25,7 +25,7 @@ Routes.forEach(route => {
     });
 });
 
-app.listen(port, '0.0.0.0', async () => {
+app.listen(config.port, '0.0.0.0', async () => {
     console.log(`Api initialize in port ${port}`);
     try {
         await createConnection();
