@@ -5,5 +5,7 @@ export const Routes = [
     { method: "get", route: "/users/:id", controller: UserController, action: "one" }, 
     { method: "post", route: "/users", controller: UserController, action: "save" }, 
     { method: "post", route: "/users/create", controller: UserController, action: "createUser" }, 
+    { method: "post", route: "/users/auth", controller: UserController, action: "auth" }, 
+    { method: "patch", route: "/users/:id", controller: UserController, action: "update" }, 
     { method: "delete", route: "/users/:id", controller: UserController, action: "remove" }
 ];

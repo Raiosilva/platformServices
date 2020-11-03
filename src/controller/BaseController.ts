@@ -55,4 +55,8 @@ export abstract class BaseController<T> extends Notifications {
         return await this.repository.save(model);
     }
 
+    get repostitory(): Repository<T> {
+        return this.repository;
+    }
+
 }
