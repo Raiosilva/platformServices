@@ -13,7 +13,11 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     async all() {
-        return this.repository.find();
+        return this.repository.find({
+            where: {
+                deleted: false,
+            }
+        });
     }
 
     async one(request: Request) {
@@ -22,8 +26,15 @@ export abstract class BaseController<T> extends Notifications {
 
     async save(model: any) {
 
+        if (model.uid) {
+            let _modelInDB = await this.repository.findOne(model.uid);
+            if (_modelInDB) {
+                Object.assign(_modelInDB, model);
+            }
+        }
+
         if (this.valid())
-            return this.repository.save(model);
+            return await this.repository.save(model);
         else
             return {
                 status: 400,

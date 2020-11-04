@@ -1,11 +1,14 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import {createConnection, Entity} from "typeorm";
 import * as express from "express";
 import * as bodyParser from "body-parser";
 import {Request, Response} from "express";
-import {Routes} from "./routes";
+import { Routes } from "./routes";
 import config from './config/config';
 import auth from './middleware/auth';
+import { type } from "os";
+import { User } from "./entity/User";
+import { Category } from "./entity/Category";
 
 const port = 3000;
 
@@ -35,7 +38,13 @@ Routes.forEach(route => {
 app.listen(config.port, '0.0.0.0', async () => {
     console.log(`Api initialize in port ${port}`);
     try {
-        await createConnection();
+        await createConnection({
+            type: 'postgres',
+            entities: [
+                User,
+                Category
+            ],
+        });
         console.log('Database connected');
     } catch (error) {
         console.error('Data base not connected', error);
