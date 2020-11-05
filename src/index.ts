@@ -38,13 +38,7 @@ Routes.forEach(route => {
 app.listen(config.port, '0.0.0.0', async () => {
     console.log(`Api initialize in port ${port}`);
     try {
-        await createConnection({
-            type: 'postgres',
-            entities: [
-                User,
-                Category
-            ],
-        });
+        await createConnection();
         console.log('Database connected');
     } catch (error) {
         console.error('Data base not connected', error);

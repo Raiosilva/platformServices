@@ -27,6 +27,11 @@ export abstract class BaseController<T> extends Notifications {
     async save(model: any) {
 
         if (model.uid) {
+            delete model['deleted'];
+            delete model['uid'];
+            delete model['createAt'];
+            delete model['updateAt'];
+
             let _modelInDB = await this.repository.findOne(model.uid);
             if (_modelInDB) {
                 Object.assign(_modelInDB, model);
@@ -57,13 +62,19 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     async remove(request: Request) {
-
         let uid = request.params.id;
         let model: any = await this.repository.findOne(uid);
         if (model) {
             model.deleted = true;
+            return await this.repository.save(model);
+        } else {
+            return {
+                status: 404,
+                errors: [
+                    'Item não encontrado no banco de dados.'
+                ]
+            }
         }
-        return await this.repository.save(model);
     }
 
     get repostitory(): Repository<T> {
