@@ -27,7 +27,6 @@ export abstract class BaseController<T> extends Notifications {
     async save(model: any) {
 
         if (model.uid) {
-            delete model['deleted'];
             delete model['uid'];
             delete model['createAt'];
             delete model['updateAt'];

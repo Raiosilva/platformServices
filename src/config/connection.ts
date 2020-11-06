@@ -2,6 +2,7 @@ import { Category } from "../entity/Category";
 import { User } from "../entity/User";
 import { createConnection } from 'typeorm';
 import { SubCategory } from "../entity/SubCategory";
+import { Question } from "../entity/Question";
 
 const cfg = require('../../ormconfig.json');
 
@@ -20,7 +21,8 @@ export default {
                 entities: [
                     User,
                     Category,
-                    SubCategory
+                    SubCategory,
+                    Question
                 ]
             }
         );
