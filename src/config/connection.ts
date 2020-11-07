@@ -4,6 +4,7 @@ import { createConnection } from 'typeorm';
 import { SubCategory } from "../entity/SubCategory";
 import { Question } from "../entity/Question";
 import { Customer } from "../entity/Customer";
+import { ServiceProvider } from "../entity/ServiceProvider";
 
 const cfg = require('../../ormconfig.json');
 
@@ -24,7 +25,8 @@ export default {
                     Category,
                     SubCategory,
                     Question,
-                    Customer
+                    Customer,
+                    ServiceProvider
                 ]
             }
         );
