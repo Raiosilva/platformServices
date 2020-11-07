@@ -11,7 +11,7 @@ export class CategoryController extends BaseController<Category> {
     async save(request: Request) {
         let category = <Category>request.body;
         super.isRequired(category.name, 'O nome da categoria é Obrigatório');
-        return super.save(category);
+        return super.save(category, request);
     }
 
 }

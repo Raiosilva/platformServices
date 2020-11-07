@@ -1,18 +1,33 @@
-import {getRepository, Repository} from "typeorm";
-import {NextFunction, Request, Response} from "express";
+import { getRepository, Repository } from "typeorm";
+import { Request } from "express";
 import { Notifications } from "../entity/Notifications";
-import { request } from "http";
 
 export abstract class BaseController<T> extends Notifications {
 
     private repository: Repository<T>;
-
-    constructor(entity: any) {
-        super();
-        this.repository = getRepository<T>(entity);
+    private onlyRootController: boolean = false;
+    public errorrRoot: any = {
+        status: 401,
+        errors: [ 'Você não está autoriado a executar essa funcinalidade!' ]
     }
 
-    async all() {
+    constructor(entity: any, onlyRoot: boolean = false) {
+        super();
+        this.repository = getRepository<T>(entity);
+        this.onlyRootController = onlyRoot;
+
+    }
+
+    public checkNotPermission(request: Request) {
+        return (this.onlyRootController && !request.IsRoot);
+    }
+
+    async all(request: Request) {
+        console.log('user', request.userAuth);
+        console.log('root', request.IsRoot);
+
+        if (this.checkNotPermission(request)) return this.errorrRoot;
+
         return this.repository.find({
             where: {
                 deleted: false,
@@ -21,10 +36,12 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     async one(request: Request) {
+        if (this.checkNotPermission(request)) return this.errorrRoot;
         return this.repository.findOne(request.params.id);
     }
 
-    async save(model: any) {
+    async save(request: Request, model: any) {
+        if (this.checkNotPermission(request)) return this.errorrRoot;
 
         if (model.uid) {
             delete model['uid'];
@@ -47,6 +64,7 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     async update(request: Request) {
+        if (this.checkNotPermission(request)) return this.errorrRoot;
 
         let uid = request.params.id;
         let model: any = await this.repository.findOne(uid);
@@ -61,6 +79,8 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     async remove(request: Request) {
+        this.checkNotPermission(request);
+
         let uid = request.params.id;
         let model: any = await this.repository.findOne(uid);
         if (model) {

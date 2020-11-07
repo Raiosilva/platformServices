@@ -12,6 +12,8 @@ export class UserController extends BaseController<User> {
     }
 
     async auth(request: Request) {
+        if (this.checkNotPermission(request)) return this.errorrRoot;
+
         let { email, password } = request.body;
         if (!email || !password) 
             return { status: 400, message: 'Informe o email e a senha para efetuar o login' };
@@ -61,7 +63,7 @@ export class UserController extends BaseController<User> {
                 _user.password = md5(password);
 
         _user.isRoot = isRoot;
-        return super.save(_user);
+        return super.save(_user, request);
     }
 
     async save(request: Request) {
@@ -69,7 +71,7 @@ export class UserController extends BaseController<User> {
         // let {name, photo, email, isRoot, password } = request.body;
         super.isRequired(user.name, 'O nome do usuário é Obrigatório');
         super.isRequired(user.photo, 'A foto do usuário é Obrigatória');
-        return super.save(user);
+        return super.save(user, request);
     }
 
 }
