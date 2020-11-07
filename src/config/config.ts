@@ -4,5 +4,6 @@ export default {
     publicRoutes: process.env.PUBLICROUTES || [
         'user/create',
         'user/auth',
+        '/customer/create',
     ]
 }

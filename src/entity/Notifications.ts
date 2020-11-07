@@ -15,4 +15,9 @@ export abstract class Notifications {
   valid(): boolean {
     return this.notifications.length == 0;
   }
+
+  isTrue(value, message) {
+    if (value)
+      this.notifications.push({ message: message });
+  }
 }

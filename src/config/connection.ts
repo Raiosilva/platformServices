@@ -3,6 +3,7 @@ import { User } from "../entity/User";
 import { createConnection } from 'typeorm';
 import { SubCategory } from "../entity/SubCategory";
 import { Question } from "../entity/Question";
+import { Customer } from "../entity/Customer";
 
 const cfg = require('../../ormconfig.json');
 
@@ -22,7 +23,8 @@ export default {
                     User,
                     Category,
                     SubCategory,
-                    Question
+                    Question,
+                    Customer
                 ]
             }
         );

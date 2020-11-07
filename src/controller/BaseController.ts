@@ -40,13 +40,15 @@ export abstract class BaseController<T> extends Notifications {
         return this.repository.findOne(request.params.id);
     }
 
-    async save(request: Request, model: any) {
-        if (this.checkNotPermission(request)) return this.errorrRoot;
+    async save(request: Request, model: any, ignorePermissions: boolean = false) {
+        if (!ignorePermissions)
+            if (this.checkNotPermission(request)) return this.errorrRoot;
 
         if (model.uid) {
-            delete model['uid'];
+            
             delete model['createAt'];
             delete model['updateAt'];
+            delete model['deleted'];
 
             let _modelInDB = await this.repository.findOne(model.uid);
             if (_modelInDB) {
