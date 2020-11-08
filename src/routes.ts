@@ -1,7 +1,8 @@
 import { CategoryController } from "./controller/CategoryController";
 import { CustomerController } from "./controller/CustomerController";
 import { QuestionController } from "./controller/QuestionController";
-import { RequestController } from "./controller/RequestController";
+import { RequestOrderAnswerController } from "./controller/RequestOrderAnswerController";
+import { RequestOrderController } from "./controller/RequestOrderController";
 import { ServiceProviderController } from "./controller/ServiceProviderController";
 import { SubCategoryController } from "./controller/SubCategoryController";
 import { UserController } from "./controller/UserController";
@@ -41,8 +42,12 @@ export const Routes = [
     { method: "post", route: "/serviceProvider/create", controller: ServiceProviderController, action: "createServiceProvider" }, 
     { method: "delete", route: "/serviceProvider/:id", controller: ServiceProviderController, action: "remove" }, 
 
-    { method: "get", route: "/request", controller: RequestController, action: "all" }, 
-    { method: "get", route: "/request/:id", controller: RequestController, action: "one" }, 
-    { method: "post", route: "/request", controller: RequestController, action: "save" },
-    { method: "delete", route: "/request/:id", controller: RequestController, action: "remove" }, 
+    { method: "get", route: "/request", controller: RequestOrderController, action: "all" }, 
+    { method: "get", route: "/request/:id", controller: RequestOrderController, action: "one" }, 
+    { method: "post", route: "/request", controller: RequestOrderController, action: "save" },
+    { method: "delete", route: "/request/:id", controller: RequestOrderController, action: "remove" }, 
+
+    { method: "get", route: "/requestAnswer/:orderUid/all", controller: RequestOrderAnswerController, action: "all" },
+    { method: "post", route: "/requestAnswer", controller: RequestOrderAnswerController, action: "save" },
+    { method: "delete", route: "/requestAnswer/:id", controller: RequestOrderAnswerController, action: "remove" }, 
 ];
