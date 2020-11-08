@@ -5,6 +5,7 @@ import { SubCategory } from "../entity/SubCategory";
 import { Question } from "../entity/Question";
 import { Customer } from "../entity/Customer";
 import { ServiceProvider } from "../entity/ServiceProvider";
+import { RequesOrder } from "../entity/RequesOrder";
 
 const cfg = require('../../ormconfig.json');
 
@@ -26,7 +27,8 @@ export default {
                     SubCategory,
                     Question,
                     Customer,
-                    ServiceProvider
+                    ServiceProvider,
+                    RequesOrder
                 ]
             }
         );
