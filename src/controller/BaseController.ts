@@ -37,7 +37,9 @@ export abstract class BaseController<T> extends Notifications {
 
     async one(request: Request) {
         if (this.checkNotPermission(request)) return this.errorrRoot;
-        return this.repository.findOne(request.params.id);
+        const uid = request.params.id as string;
+        // const id = <String>request.params.id
+        return this.repository.findOne(uid);
     }
 
     async save(request: Request, model: any, ignorePermissions: boolean = false) {
@@ -50,7 +52,9 @@ export abstract class BaseController<T> extends Notifications {
             delete model['updateAt'];
             delete model['deleted'];
 
-            let _modelInDB = await this.repository.findOne(model.uid);
+            const uid = model.uid as string;
+
+            let _modelInDB = await this.repository.findOne(uid);
             if (_modelInDB) {
                 Object.assign(_modelInDB, model);
             }
@@ -83,7 +87,7 @@ export abstract class BaseController<T> extends Notifications {
     async remove(request: Request) {
         this.checkNotPermission(request);
 
-        let uid = request.params.id;
+        let uid = request.params.id as string;
         let model: any = await this.repository.findOne(uid);
         if (model) {
             model.deleted = true;
