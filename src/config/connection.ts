@@ -34,6 +34,6 @@ export default {
                 ]
             }
         );
-        console.log('Database connected');
+        console.log('Database connected 2');
     }
 }
