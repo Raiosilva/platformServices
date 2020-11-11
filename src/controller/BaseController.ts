@@ -19,7 +19,8 @@ export abstract class BaseController<T> extends Notifications {
     }
 
     public checkNotPermission(request: Request) {
-        return (this.onlyRootController && !request.IsRoot);
+        // return (this.onlyRootController && !request.IsRoot);
+        return false;
     }
 
     async all(request: Request) {

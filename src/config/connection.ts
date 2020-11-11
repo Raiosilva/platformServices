@@ -1,6 +1,6 @@
 import { Category } from "../entity/Category";
 import { User } from "../entity/User";
-import { createConnection } from 'typeorm';
+import { createConnection } from "typeorm";
 import { SubCategory } from "../entity/SubCategory";
 import { Question } from "../entity/Question";
 import { Customer } from "../entity/Customer";
@@ -37,3 +37,4 @@ export default {
         console.log('Database connected');
     }
 }
+console.log('Database deu pau');
