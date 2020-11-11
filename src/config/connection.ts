@@ -34,7 +34,7 @@ export default {
                 ]
             }
         );
-        console.log('Database connected');
+        console.log('Database connected 2');
     }
 }
 console.log('Database deu pau');

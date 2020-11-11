@@ -34,9 +34,9 @@ Routes.forEach(route => {
 app.listen(config.port, '0.0.0.0', async () => {
     console.log(`Api initialize in port ${config.port}`);
     try {
-        await connection.createConnection();
-        console.log('Database connected');
+        connection.createConnection();
+        console.log('Database connected 1');
     } catch (error) {
-        console.error('Data base not connected', error);
+        console.error('Database not connected', error);
     }
 })

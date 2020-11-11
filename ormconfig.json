@@ -1,10 +1,10 @@
 {
    "type": "postgres",
    "host": "localhost",
-   "port": 5434,
+   "port": 5432,
    "username": "postgres",
-   "password": "root",
-   "database": "db_platform",
+   "password": "12345",
+   "database": "teste",
    "synchronize": true,
    "logging": false,
    "entities": [
