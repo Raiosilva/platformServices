@@ -31,11 +31,11 @@ Routes.forEach(route => {
     });
 });
 
-app.listen(config.port, '0.0.0.0', async () => {
+app.listen(config.port, '0.0.0.0', () => {
     console.log(`Api initialize in port ${config.port}`);
     try {
         connection.createConnection();
-        console.log('Database connected 1');
+        console.log('Database connected');
     } catch (error) {
         console.error('Database not connected', error);
     }
