@@ -43,7 +43,7 @@ export abstract class BaseController<T> extends Notifications {
         return this.repository.findOne(uid);
     }
 
-    async save(request: Request, model: any, ignorePermissions: boolean = false) {
+    async save(model: any, request: Request, ignorePermissions: boolean = false) {
         if (!ignorePermissions)
             if (this.checkNotPermission(request)) return this.errorrRoot;
 

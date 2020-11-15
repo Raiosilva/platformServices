@@ -22,7 +22,7 @@ export class UserController extends BaseController<User> {
         if (user) {
             let _payload = {
                 uid: user.uid,
-                name: user.name,
+                firstName: user.firstName,
                 email: user.email,
                 photo: user.photo
             }
@@ -41,15 +41,15 @@ export class UserController extends BaseController<User> {
     }
 
     async createUser(request: Request) {
-        let {name, photo, email, isRoot, password, confirm_password } = request.body;
-        super.isRequired(name, 'Informe o nome');
+        let {firstName, photo, email, isRoot, password, confirm_password } = request.body;
+        super.isRequired(firstName, 'Informe o nome');
         super.isRequired(photo, 'Informe a photo');
         super.isRequired(password, 'Informe a senha');
         super.isRequired(confirm_password, 'Informe a confirmação da senha');
         super.isRequired(email, 'Informe o email');
 
         let _user = new User();
-        _user.name = name;
+        _user.firstName = firstName;
         _user.photo = photo;
         _user.email = email;
 
@@ -69,7 +69,7 @@ export class UserController extends BaseController<User> {
     async save(request: Request) {
         let user = <User>request.body;
         // let {name, photo, email, isRoot, password } = request.body;
-        super.isRequired(user.name, 'O nome do usuário é Obrigatório');
+        super.isRequired(user.firstName, 'O nome do usuário é Obrigatório');
         super.isRequired(user.photo, 'A foto do usuário é Obrigatória');
         return super.save(user, request);
     }

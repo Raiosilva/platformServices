@@ -4,8 +4,8 @@ import { BaseEntity } from './BaseEntity';
 @Entity({ name: 'User' })
 export class User extends BaseEntity {
 
-    @Column({ type: 'varchar', length: 100 })
-    name: string;
+    @Column({ type: 'varchar', length: 100, nullable: false })
+    firstName: string;
 
     @Column({ type: 'varchar', length: 200 })
     photo: string;
