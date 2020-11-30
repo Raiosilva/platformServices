@@ -23,13 +23,11 @@ export abstract class BaseController<T> extends Notifications {
         return false;
     }
 
-    async all(request: Request) {
-        console.log('user', request.userAuth);
-        console.log('root', request.IsRoot);
+    async all(request: Request) { 
 
         if (this.checkNotPermission(request)) return this.errorrRoot;
 
-        return this.repository.find({
+        return await this.repository.find({
             where: {
                 deleted: false,
             }

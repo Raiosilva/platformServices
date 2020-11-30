@@ -14,7 +14,7 @@ export class SubCategory extends BaseEntity {
     @Column()
     cost: number;
 
-    @ManyToOne(() => Category, { eager: true, lazy: true }) //auto populate
+    @ManyToOne(() => Category, { eager: true }) //auto populate
     category: Category
 
 }

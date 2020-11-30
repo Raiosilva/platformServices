@@ -3,6 +3,7 @@ import { Customer } from "../entity/Customer";
 import { BaseController } from "./BaseController";
 import * as md5 from 'md5';
 import { ServiceProvider } from "../entity/ServiceProvider";
+import { FileHelper } from "../helpers/fileHelper";
 
 export class ServiceProviderController extends BaseController<ServiceProvider> {
 
@@ -26,6 +27,12 @@ export class ServiceProviderController extends BaseController<ServiceProvider> {
 
         this.validationDefault(serviceProvider);
 
+        if (serviceProvider.photo) {
+            let pictureCreatedResult = await FileHelper.writePicture(serviceProvider.photo)
+            if (pictureCreatedResult) 
+                serviceProvider.photo = pictureCreatedResult
+        }
+
         delete serviceProvider.password;
 
         return super.save(serviceProvider, request);
@@ -40,6 +47,12 @@ export class ServiceProviderController extends BaseController<ServiceProvider> {
         super.isRequired(confirmPassword, 'A confirmação da senha é obrigatório');
         super.isTrue((serviceProvider.password != confirmPassword), 'A senha e a confirmação de senha estão diferentes');
 
+        if (serviceProvider.photo) {
+            let pictureCreatedResult = await FileHelper.writePicture(serviceProvider.photo)
+            if (pictureCreatedResult) 
+                serviceProvider.photo = pictureCreatedResult
+        }
+        
         if (serviceProvider.password)
             serviceProvider.password = md5(serviceProvider.password);
         

@@ -20,7 +20,7 @@ export default {
                 username: cfg.username,
                 password: cfg.password,
                 database: cfg.database,
-                synchronize: true,
+                synchronize: false,
                 logging: false,
                 entities: [
                     User,
