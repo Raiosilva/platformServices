@@ -1,3 +1,4 @@
+import { AddressController } from "./controller/AddressController";
 import { CategoryController } from "./controller/CategoryController";
 import { CustomerController } from "./controller/CustomerController";
 import { QuestionController } from "./controller/QuestionController";
@@ -53,4 +54,8 @@ export const Routes = [
     { method: "delete", route: "/requestAnswer/:id", controller: RequestOrderAnswerController, action: "remove" },
 
     { method: "get", route: "/storage/:filename", controller: StorageController, action: "getFile" },
+
+    { method: "get", route: "/address", controller: AddressController, action: "getAllStates" },
+    { method: "get", route: "/address/:state", controller: AddressController, action: "getAllCities" },
+
 ];

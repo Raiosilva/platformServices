@@ -8,5 +8,6 @@ export default {
         'users/auth',
         '/customer/create',
         'storage',
+        'address'
     ]
 }
