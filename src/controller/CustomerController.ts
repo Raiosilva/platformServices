@@ -12,11 +12,19 @@ export class CustomerController extends BaseController<Customer> {
 
     async save(request: Request) {
         let customer = <Customer>request.body;
+        let { confirmPassword } = request.body;
 
         super.isRequired(customer.name, 'O nome Obrigatório');
         super.isRequired(customer.photo, 'A foto é Obrigatória');
         super.isRequired(customer.email, 'O E-mail é obrigatório');
         super.isRequired(customer.phone, 'Telefone é obrigatório');
+
+        if (!customer.uid) {
+            super.isRequired(confirmPassword, 'A confirmação da senha é obrigatório');
+            super.isTrue((customer.password != confirmPassword), 'A senha e a confirmação de senha estão diferentes');
+        } else {
+            delete customer.password;
+        }
 
         if (customer.photo) {
             let pictureCreatedResult = await FileHelper.writePicture(customer.photo)

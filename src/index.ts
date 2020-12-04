@@ -10,7 +10,7 @@ import connection from "./config/connection";
 
 // create express app
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(cors());
 // app.use(auth);
 
@@ -22,8 +22,10 @@ Routes.forEach(route => {
             result.then(d => {
                 if (d && d.status)
                     res.status(d.status).send(d.message || d.errors);
-                    else
-                        res.json(d);
+                else if (d && d.file)
+                    res.sendFile(d.file);
+                else
+                    res.json(d);
             });
         } else if (result !== null && result !== undefined) {
             res.json(result);
