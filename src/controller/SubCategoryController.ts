@@ -1,8 +1,12 @@
 import { Request } from "express";
+import { getRepository } from "typeorm";
+import { Question } from "../entity/Question";
 import { SubCategory } from "../entity/SubCategory";
 import { BaseController } from "./BaseController";
 
 export class SubCategoryController extends BaseController<SubCategory> {
+
+    private _questionRepository = getRepository(Question);
 
     constructor() {
         super(SubCategory);
@@ -18,4 +22,14 @@ export class SubCategoryController extends BaseController<SubCategory> {
         return super.save(subCategory, request);
     }
 
+    async getAllQuestions(request: Request) {
+        const { id: categoryId } = request.params;
+        return this._questionRepository.find({
+            where: {
+                subCategory: categoryId,
+                active: true,
+                deleted: false
+            }
+        });
+    }
 }
